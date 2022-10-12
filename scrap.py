@@ -1,6 +1,7 @@
 import json
 import os.path
 from bs4 import BeautifulSoup
+import pandas
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -38,29 +39,11 @@ for each in overall:
     temp['Monthly Cash Flow'] = cash [1].text
     hotels.append(temp)
 
-print(json.dumps(hotels, indent =4))
+# print(json.dumps(hotels, indent =4))
 
 
 driver.quit()
 
 
 
-
-
-
-
-
-# for name in soup.findAll('div',{'class':'box-footer'}):
-#     hotels.append(name.h3.text.strip())
-#     hotels.append(name.div.text.strip())
-#     hotels.append(name.div.text.strip())
-
-   
-# import json
-
-# print(json.dumps(hotels, indent =4))
-# for review in reviews:
-    # title = review.find_elements_by_class_name('review-title')
-    # print(review)
-# for a in soup.find_all('a', href=True):
-#     print ("Found the URL:", a['href'])
+print(pandas.DataFrame(hotels))
