@@ -28,25 +28,25 @@ next_page.click()
 
 html = driver.page_source
 soup = BeautifulSoup(html, "lxml")
+soup = soup.findAll('div', {'class': "a-section review aok-relative"})
 
-soup = soup.find('div', {'class' : "a-section a-spacing-none celwidget"})
 
-print(len(soup))
+
 reviews = []
 
 for review in soup:
 	temp = {}
-	r = review.find('div', {'class':"a-profile-name"})
-	print(r, "???????????????????")
-	# temp["Rating"] = review.find('span', class_="a-icon-alt").text
-	# review_title = review.find('a', class_="a-size-base a-link-normal review-title a-color-base review-title-content a-text-bold")
-	# temp['Review Title'] = review_title.span.text
-	# temp["Review Date"] = review.find('span', class_="a-size-base a-color-secondary review-date").text
-	# content = review.find('span', class_ ="a-size-base review-text")
-	# temp["Review"]=content.span.text
+	temp["Name"] = review.find('span', {'class':"a-profile-name"}).text 
+	temp["Rating"] = review.find('span', class_="a-icon-alt").text
+	review_title = review.find('a', class_="a-size-base a-link-normal review-title a-color-base review-title-content a-text-bold")
+	temp['Review Title'] = review_title.span.text
+	temp["Review Date"] = review.find('span', class_="a-size-base a-color-secondary review-date").text
+	content = review.find('div', class_ ="a-row a-spacing-small review-data")
+	span = content.findAll('span')
+	temp["Review"]=span[1].text
 
 	reviews.append(temp)
 
-# print(json.dumps(reviews, indent =4))
-time.sleep(10)
+print(json.dumps(reviews, indent =4))
+time.sleep(5)
 driver.quit()
