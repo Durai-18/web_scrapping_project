@@ -1,4 +1,3 @@
-import json
 import os.path
 from bs4 import BeautifulSoup
 import pandas
@@ -23,12 +22,9 @@ driver.get(url)
 html = driver.page_source
 soup = BeautifulSoup(html, "lxml")  
 
-
-
 hotels = []
 overall = soup.findAll('div', {'class': "box-footer"}) 
 print(len(overall))
-
 
 for each in overall:
     temp = {}
@@ -39,11 +35,6 @@ for each in overall:
     temp['Monthly Cash Flow'] = cash [1].text
     hotels.append(temp)
 
-# print(json.dumps(hotels, indent =4))
-
-
 driver.quit()
-
-
 
 print(pandas.DataFrame(hotels))
